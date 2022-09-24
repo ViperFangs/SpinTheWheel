@@ -16,12 +16,14 @@ function main() {
 	console.log(dictionary);
 }
 
+// getFileLines takes a filename as an input, and returns the content of that file in an array
 function getFileLines(filename) {
 	content = FS.readFileSync(filename).toString('UTF-8');
 	lines = content.split('\n');
 	return lines;
 }
 
+// SpinTheWheel returns a random Points value
 function SpinTheWheel() {
 	// Initialize Array of Scores
 	const SCORES = [
@@ -52,7 +54,7 @@ function SpinTheWheel() {
 
 	// Find a random number between 0 to length of the SCORES array
 	let index = Math.floor(Math.random() * SCORES.length);
+
+	// return the value at the random index
 	return SCORES[index];
 }
-
-console.log(SpinTheWheel());
