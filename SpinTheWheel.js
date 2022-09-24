@@ -10,4 +10,12 @@ const FS = require('fs');
 
 function main() {
 	console.log('Welcome to CPI 310 Fortunate Wheel');
+	const dictionary = getFileLines('dictionary.txt');
+	console.log(dictionary);
+}
+
+function getFileLines(filename) {
+	content = FS.readFileSync(filename).toString('UTF-8');
+	lines = content.split('\n');
+	return lines;
 }
