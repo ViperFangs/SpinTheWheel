@@ -6,6 +6,8 @@ Description: Assignment 1 CPI 310 - Spin The Wheel Game on JavaScript
 
 // Initialize prompt-sync to collect user-prompts
 const PROMPT = require('prompt-sync')();
+
+// Initialize FileSync
 const FS = require('fs');
 
 function main() {
@@ -19,3 +21,38 @@ function getFileLines(filename) {
 	lines = content.split('\n');
 	return lines;
 }
+
+function SpinTheWheel() {
+	// Initialize Array of Scores
+	const SCORES = [
+		0,
+		650,
+		900,
+		700,
+		500,
+		800,
+		500,
+		650,
+		500,
+		900,
+		0,
+		1000,
+		500,
+		900,
+		700,
+		600,
+		8000,
+		500,
+		700,
+		600,
+		550,
+		500,
+		900
+	];
+
+	// Find a random number between 0 to length of the SCORES array
+	let index = Math.floor(Math.random() * SCORES.length);
+	return SCORES[index];
+}
+
+console.log(SpinTheWheel());
