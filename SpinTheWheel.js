@@ -10,10 +10,13 @@ const PROMPT = require('prompt-sync')({ sigint: true });
 // Initialize FileSync
 const FS = require('fs');
 
+// Declare a global player list
+let playerList = [];
+
 function main() {
-	let playerList = []
 	let continueGame = true;
 	let numberOfPlayers = 0;
+	const GAMEROUNDS = 3;
 
 	console.log('Welcome to CPI 310 Fortunate Wheel');
 	numberOfPlayers = PROMPT("Enter number of players: ");
@@ -23,35 +26,41 @@ function main() {
 		playerList.push(createPlayer())
 	}
 
-	while(continueGame) {
-		for (let index in playerList) {
-			// The totalScore is added with the value returned by playTurn()
-			playerList[index].totalScore += playTurn(playerList[index].name, index + 1);
-		}
+	for (i = 1; i <= GAMEROUNDS; i++) {
+		index = 0;
+		while(continueGame) {
+				let currentRound = playTurn(index);
 
-		console.log("\n");
-		let playerInput = PROMPT("Would you like to play the game again(Y/N)? ");
+				if (currentRound == true) {
+					clearRoundScores();
+				}
 
-		if (playerInput.toLowerCase == 'n')
-		{
-			continueGame = false;
+				index += 1;
+				if (index > numberOfPlayers) {
+					index = 0;
+				}
+			}
 		}
+}
+
+function clearRoundScores() {
+	for (let index in playerList) {
+		playerList[index].roundScore = 0;
 	}
 }
 
 // playTurn takes a playerName and  playerNumber as inputs and is responsible for playing a single player turn
 // playTurn returns the value of points the player got at the end of the round.
-function playTurn(playerName, playerNumber) {
+function playTurn(playerIndex) {
 	// generates a random word and converts that word into an array
 	let puzzleArray = selectRandomWord().split('');
 	let puzzleWord = puzzleArray.join('').toLowerCase();
 	// generates a new array of size puzzleArray.length and fills it with '-'
 	let playerArray = Array(puzzleArray.length).fill('-');
-	let roundScore = 0;
 	let gameState = 1;
 
-	console.log(`\nPlayer ${playerNumber} - ${playerName} it's your turn!`)
-	console.log(`Your round score is ${roundScore}`)
+	console.log(`\nPlayer ${playerIndex + 1} - ${playerList[playerIndex].name} it's your turn!`)
+	console.log(`Your round score is ${playerList[playerIndex].roundScore}`)
 
 	while (gameState == 1){
 		PROMPT("Press ENTER to spin the Wheel! ")
@@ -74,37 +83,39 @@ function playTurn(playerName, playerNumber) {
 
 		if (correctGuesses >= 1) {
 			for (let i = 0; i < correctGuesses; i++){
-				roundScore += spinValue;
+				playerList[playerIndex].roundScore += spinValue;
 			}
+			
 			console.log("\nYES!");
+			console.log(`Puzzle: ${playerArray.join('')}`);
+			console.log(`Your round score is ${roundScore}`);
 		}
 		else {
-			roundScore -= spinValue/2;
-			console.log("\nNO! Sorry")
+			playerList[playerIndex].roundScore -= spinValue/2;
+			console.log("\nNO! Sorry");
+			console.log(`Puzzle: ${playerArray.join('')}`);
+			console.log(`Your round score is ${roundScore}`);
+			return false;
 		}
 
-		console.log(`Puzzle: ${playerArray.join('')}`);
-		console.log(`Your round score is ${roundScore}`);
-
 		gameState = Number(PROMPT('Enter 1 to Spin and Guess again or 2 to solve: '));
-
-		if (gameState == 2) {
+		
+		if (gameState == 2){
 			console.log("\nEnter your word: ");
 			let playerFinalWord = PROMPT().toLowerCase();
 		
 			if(playerFinalWord == puzzleWord){
-				console.log("\nCORRECT! Your points will now be added to your total score!")
-				return roundScore;
+				console.log(`\nCORRECT! The puzzle word is: ${puzzleWord}`);
+				playerList[playerIndex].totalScore +=  playerList[playerIndex].roundScore;
+				return true;
 			}
 			else {
 				console.log("\nINCORRECT!")
-				roundScore = 0;
-				gameState = 1;
+				playerList[playerIndex].roundScore = 0;
+				return false;
 			}
 		}
 	}
-
-	
 }
 
 function createPlayer() {
