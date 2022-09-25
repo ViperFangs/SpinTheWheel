@@ -53,21 +53,21 @@ function SpinTheWheel() {
 	];
 
 	// Find a random number between 0 to length of the SCORES array
-	let index = randomNumber(SCORES.length);
+	let index = generateRandomNumber(SCORES.length);
 
 	// return the value at the random index
 	return SCORES[index];
 }
 
-// randomNumber takes an input maxValue and returns a value between 0 and maxValue
-function randomNumber(maxValue = 1) {
+// generateRandomNumber takes an input maxValue and returns a value between 0 and maxValue
+function generateRandomNumber(maxValue = 1) {
 	return Math.floor(Math.random() * maxValue);
 }
 
 // selectRandomWord is responsible for selecting a RandomWord from the dictionary
 function selectRandomWord() {
 	const dictionary = getFileLines('dictionary.txt');
-	randomWordIndex = randomNumber(dictionary.length);
+	randomWordIndex = generateRandomNumber(dictionary.length);
 
 	return dictionary[randomWordIndex];
 }
