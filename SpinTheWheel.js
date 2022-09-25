@@ -14,7 +14,6 @@ const FS = require('fs');
 let playerList = [];
 
 function main() {
-	let continueGame = true;
 	let numberOfPlayers = 0;
 	const GAMEROUNDS = 3;
 
@@ -28,15 +27,18 @@ function main() {
 
 	for (i = 1; i <= GAMEROUNDS; i++) {
 		index = 0;
+		let continueGame = true;
+
 		while(continueGame) {
 				let currentRound = playTurn(index);
 
 				if (currentRound == true) {
 					clearRoundScores();
+					continueGame = false;
 				}
 
 				index += 1;
-				if (index > numberOfPlayers) {
+				if (index >= numberOfPlayers) {
 					index = 0;
 				}
 			}
@@ -85,16 +87,16 @@ function playTurn(playerIndex) {
 			for (let i = 0; i < correctGuesses; i++){
 				playerList[playerIndex].roundScore += spinValue;
 			}
-			
+
 			console.log("\nYES!");
 			console.log(`Puzzle: ${playerArray.join('')}`);
-			console.log(`Your round score is ${roundScore}`);
+			console.log(`Your round score is ${playerList[playerIndex].roundScore}`);
 		}
 		else {
 			playerList[playerIndex].roundScore -= spinValue/2;
 			console.log("\nNO! Sorry");
 			console.log(`Puzzle: ${playerArray.join('')}`);
-			console.log(`Your round score is ${roundScore}`);
+			console.log(`Your round score is ${playerList[playerIndex].roundScore}`);
 			return false;
 		}
 
@@ -110,7 +112,7 @@ function playTurn(playerIndex) {
 				return true;
 			}
 			else {
-				console.log("\nINCORRECT!")
+				console.log(`\nINCORRECT! The puzzle word is: ${puzzleWord}`)
 				playerList[playerIndex].roundScore = 0;
 				return false;
 			}
