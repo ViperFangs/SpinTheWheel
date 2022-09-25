@@ -59,6 +59,7 @@ function SpinTheWheel() {
 	return SCORES[index];
 }
 
+// randomNumber takes an input maxValue and returns a value between 0 and maxValue
 function randomNumber(maxValue = 1) {
 	return Math.floor(Math.random() * maxValue);
 }
