@@ -47,6 +47,7 @@ function main() {
 		}
 }
 
+// verifyPrompt takes a string, a minValue, a maxValue and repeats to Prompt the player to enter a valid number which is between minValue and maxValue
 function verifyPrompt(string, minValue, maxValue){
 	let promptNumber = 99;
 	let incorrectFlag = false;
