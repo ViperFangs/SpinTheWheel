@@ -62,3 +62,11 @@ function SpinTheWheel() {
 function randomNumber(maxValue = 1) {
 	return Math.floor(Math.random() * maxValue);
 }
+
+// selectRandomWord is responsible for selecting a RandomWord from the dictionary
+function selectRandomWord() {
+	const dictionary = getFileLines('dictionary.txt');
+	randomWordIndex = randomNumber(dictionary.length);
+
+	return dictionary[randomWordIndex];
+}
