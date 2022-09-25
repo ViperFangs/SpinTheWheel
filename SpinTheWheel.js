@@ -28,8 +28,9 @@ function main() {
 	}
 }
 
+// playTurn takes a player and its number as inputs and is responsible for playing a single player turn 
 function playTurn(player, number) {
-	spinValue = SpinTheWheel();
+	let spinValue = SpinTheWheel();
 
 	console.log(`\nPlayer ${number} - ${player.name} it's your turn!`)
 	console.log(`Your round score is ${player.roundScore}`)
