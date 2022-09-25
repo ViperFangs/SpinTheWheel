@@ -15,16 +15,16 @@ function main() {
 	let numberOfPlayers;
 
 	console.log('Welcome to CPI 310 Fortunate Wheel');
-	numberOfPlayers = prompt("Enter number of players: ");
+	numberOfPlayers = PROMPT("Enter number of players: ");
 
 	for (let i = 0; i < numberOfPlayers; i++)
 	{
-		playerList.push(createPlayer)
+		playerList.push(createPlayer())
 	}
 }
 
 function createPlayer() {
-	let name = prompt("Enter your name: ");
+	let name = PROMPT("Enter your name: ");
 	return {
 		name: name,
 		roundScore: 0,
@@ -74,9 +74,7 @@ function SpinTheWheel() {
 	// return the value at the random index
 	return SCORES[index];
 }
-
-// generateRandomNumber takes an input maxValue and returns a value between 0 and maxValue
-function generateRandomNumber(maxValue = 1) {
+function randomNumber(maxValue = 1) {
 	return Math.floor(Math.random() * maxValue);
 }
 
@@ -87,3 +85,5 @@ function selectRandomWord() {
 
 	return dictionary[randomWordIndex];
 }
+
+main();
