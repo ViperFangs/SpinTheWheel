@@ -30,9 +30,9 @@ function main() {
 		let continueGame = true;
 
 		while(continueGame) {
-				let currentRound = playTurn(index);
+				let playerWon = playTurn(index);
 
-				if (currentRound == true) {
+				if (playerWon) {
 					clearRoundScores();
 					continueGame = false;
 				}
