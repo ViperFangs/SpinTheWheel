@@ -33,11 +33,13 @@ function main() {
 				let playerWon = playTurn(index);
 
 				if (playerWon) {
+					// if the player correctly guesses the word then all roundScores are cleared and the game moves to the next round
 					clearRoundScores();
 					continueGame = false;
 				}
 
 				index += 1;
+				// if index becomes greater than the numberOfPlayers then it should revert back to player[index = 0]
 				if (index >= numberOfPlayers) {
 					index = 0;
 				}
