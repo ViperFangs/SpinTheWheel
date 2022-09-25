@@ -2,5 +2,23 @@
   "dependencies": {
     "fs": "^0.0.1-security",
     "prompt-sync": "^4.2.0"
-  }
+  },
+  "name": "spinthewheel",
+  "description": "Assignment 1 - Spin the wheel on JavaScript",
+  "version": "1.0.0",
+  "main": "SpinTheWheel.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ViperFangs/SpinTheWheel.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ViperFangs/SpinTheWheel/issues"
+  },
+  "homepage": "https://github.com/ViperFangs/SpinTheWheel#readme"
 }
