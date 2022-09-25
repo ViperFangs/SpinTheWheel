@@ -12,6 +12,7 @@ const FS = require('fs');
 
 function main() {
 	let playerList = []
+	let gameOver = false;
 	let numberOfPlayers;
 
 	console.log('Welcome to CPI 310 Fortunate Wheel');
@@ -21,6 +22,20 @@ function main() {
 	{
 		playerList.push(createPlayer())
 	}
+
+	for (let index in playerList) {
+		playTurn(playerList[index], index + 1)
+	}
+}
+
+function playTurn(player, number) {
+	spinValue = SpinTheWheel();
+
+	console.log(`\nPlayer ${number} - ${player.name} it's your turn!`)
+	console.log(`Your round score is ${player.roundScore}`)
+	PROMPT("Press ENTER to spin the Wheel! ")
+
+	console.log(`\nYou Spun: [${spinValue}]`)
 }
 
 function createPlayer() {
@@ -74,7 +89,9 @@ function SpinTheWheel() {
 	// return the value at the random index
 	return SCORES[index];
 }
-function randomNumber(maxValue = 1) {
+
+// generateRandomNumber takes an input maxValue and returns a value between 0 and maxValue
+function generateRandomNumber(maxValue = 1) {
 	return Math.floor(Math.random() * maxValue);
 }
 
