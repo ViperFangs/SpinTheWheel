@@ -18,7 +18,7 @@ function main() {
 	const GAMEROUNDS = 3;
 
 	console.log('Welcome to CPI 310 Fortunate Wheel');
-	numberOfPlayers = PROMPT("Enter number of players: ");
+	numberOfPlayers = verifyPrompt("Enter number of players: ", 1, 3);
 
 	for (let i = 0; i < numberOfPlayers; i++)
 	{
@@ -47,6 +47,21 @@ function main() {
 		}
 }
 
+function verifyPrompt(string, minValue, maxValue){
+	let promptNumber = 99;
+	let incorrectFlag = false;
+
+	while(promptNumber < minValue || promptNumber > maxValue){
+		if (incorrectFlag) {
+			console.log(`\nPlease enter a number between ${minValue} & ${maxValue}`)
+		}
+		promptNumber = Number(PROMPT(string));
+		incorrectFlag = true;
+	}
+
+	return promptNumber;
+}
+
 function clearRoundScores() {
 	for (let index in playerList) {
 		playerList[index].roundScore = 0;
@@ -62,14 +77,21 @@ function playTurn(playerIndex) {
 	// generates a new array of size puzzleArray.length and fills it with '-'
 	let playerArray = Array(puzzleArray.length).fill('-');
 	let gameState = 1;
+	let totalCorrectGuesses = 0;
 
 	console.log(`\nPlayer ${playerIndex + 1} - ${playerList[playerIndex].name} it's your turn!`)
 	console.log(`Your round score is ${playerList[playerIndex].roundScore}`)
+	PROMPT("Press ENTER to spin the Wheel! ")
 
 	while (gameState == 1){
-		PROMPT("Press ENTER to spin the Wheel! ")
 		// Generates the Points for the current round
 		let spinValue = SpinTheWheel();
+
+		if (spinValue == 0) {
+			console.log("\nBad luck! you rolled a 0, your turn will now be skipped!");
+			console.log(`Your round score is ${playerList[playerIndex].roundScore}`);
+			return false;
+		}
 
 		console.log(`\nYou Spun: [${spinValue}]`)
 		console.log(`Puzzle: ${playerArray.join('')} \t Answer: ${puzzleArray}\n`)
@@ -82,12 +104,21 @@ function playTurn(playerIndex) {
 				playerArray[index] =  puzzleArray[index];
 				puzzleArray[index] = '-';
 				correctGuesses += 1;
+				totalCorrectGuesses += 1;
 			}
 		}
 
 		if (correctGuesses >= 1) {
 			for (let i = 0; i < correctGuesses; i++){
 				playerList[playerIndex].roundScore += spinValue;
+			}
+
+			// if the totalCorrectGuesses is the same as the length of the puzzle then the player has correctly guessed all the letters
+			if (totalCorrectGuesses == puzzleArray.length) {
+				console.log(`\nCORRECT! The puzzle word is: ${puzzleWord}`);
+				playerList[playerIndex].totalScore +=  playerList[playerIndex].roundScore;
+				console.log(`You have WON this round! Your total points are ${playerList[playerIndex].totalScore}`);
+				return true;
 			}
 
 			console.log("\nYES!");
@@ -102,7 +133,7 @@ function playTurn(playerIndex) {
 			return false;
 		}
 
-		gameState = Number(PROMPT('Enter 1 to Spin and Guess again or 2 to solve: '));
+		gameState = verifyPrompt('Enter 1 to Spin and Guess again or 2 to solve: ', 1, 2);
 		
 		if (gameState == 2){
 			console.log("\nEnter your word: ");
@@ -111,6 +142,7 @@ function playTurn(playerIndex) {
 			if(playerFinalWord == puzzleWord){
 				console.log(`\nCORRECT! The puzzle word is: ${puzzleWord}`);
 				playerList[playerIndex].totalScore +=  playerList[playerIndex].roundScore;
+				console.log(`You have WON this round! Your total points are ${playerList[playerIndex].totalScore}`);
 				return true;
 			}
 			else {
