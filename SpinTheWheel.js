@@ -5,14 +5,14 @@ Description: Assignment 1 CPI 310 - Spin The Wheel Game on JavaScript
 */
 
 // Initialize prompt-sync to collect user-prompts
-const PROMPT = require('prompt-sync')();
+const PROMPT = require('prompt-sync')({ sigint: true });
 
 // Initialize FileSync
 const FS = require('fs');
 
 function main() {
 	console.log('Welcome to CPI 310 Fortunate Wheel');
-	const dictionary = getFileLines('dictionary.txt');
+
 	console.log(dictionary);
 }
 
@@ -53,8 +53,12 @@ function SpinTheWheel() {
 	];
 
 	// Find a random number between 0 to length of the SCORES array
-	let index = Math.floor(Math.random() * SCORES.length);
+	let index = randomNumber(SCORES.length);
 
 	// return the value at the random index
 	return SCORES[index];
+}
+
+function randomNumber(maxValue = 1) {
+	return Math.floor(Math.random() * maxValue);
 }
