@@ -11,9 +11,25 @@ const PROMPT = require('prompt-sync')({ sigint: true });
 const FS = require('fs');
 
 function main() {
-	console.log('Welcome to CPI 310 Fortunate Wheel');
+	let playerList = []
+	let numberOfPlayers;
 
-	console.log(dictionary);
+	console.log('Welcome to CPI 310 Fortunate Wheel');
+	numberOfPlayers = prompt("Enter number of players: ");
+
+	for (let i = 0; i < numberOfPlayers; i++)
+	{
+		playerList.push(createPlayer)
+	}
+}
+
+function createPlayer() {
+	let name = prompt("Enter your name: ");
+	return {
+		name: name,
+		roundScore: 0,
+		totalScore: 0,
+	}
 }
 
 // getFileLines takes a filename as an input, and returns the content of that file in an array
