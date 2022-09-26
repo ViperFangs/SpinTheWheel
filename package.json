@@ -3,7 +3,7 @@
     "fs": "^0.0.1-security",
     "prompt-sync": "^4.2.0"
   },
-  "name": "FortuneWheel",
+  "name": "spinthewheel",
   "description": "Assignment 1 - Spin the wheel on JavaScript",
   "version": "1.0.0",
   "main": "index.js",
