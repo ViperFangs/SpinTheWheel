@@ -18,6 +18,9 @@ function main() {
 	// the default number of rounds is 3
 	let numberOfRounds = 3;
 
+	// Will clear the console. better UX
+	console.clear();
+
 	console.log('Welcome to CPI 310 Fortunate Wheel');
 	numberOfPlayers = verifyPrompt("Enter number of players: ", 1, 3);
 
@@ -31,6 +34,9 @@ function main() {
 		playerList.push(createPlayer(i + 1));
 	}
 
+	// Will clear the console. better UX
+	console.clear();
+
 	// the for loop will iterate till the max numberOfRounds
 	for (i = 1; i <= numberOfRounds; i++) {
 		index = 0;
@@ -38,29 +44,42 @@ function main() {
 
 		// the while loop will iterate until a player has won
 		while(continueGame) {
-				let playerWon = playTurn(index);
+			let playerWon = playTurn(index);
 
-				if (playerWon) {
-					// if the player correctly guesses the word then all roundScores are cleared and the game moves to the next round
-					clearRoundScores();
-					continueGame = false;
-				}
+			if (playerWon) {
+				// if the player correctly guesses the word then all roundScores are cleared and the game moves to the next round
+				clearRoundScores();
+				continueGame = false;
+			}
 
-				index += 1;
-				// if index becomes greater than the numberOfPlayers then it should revert back to player[index = 0]
-				if (index >= numberOfPlayers) {
-					index = 0;
-				}
+			index += 1;
+			// if index becomes greater than the numberOfPlayers then it should revert back to player[index = 0]
+			if (index >= numberOfPlayers) {
+				index = 0;
 			}
 		}
+	}
 
-		console.log("Would you like to play the game again?");
-		let playAgain = verifyPrompt("Enter 1 for Yes and 2 for No", 1, 2);
+	// gameWinner will return the object of the player that won the game
+	let winner = gameWinner();
+	console.log(`\nCongratulations ${winner.name}! You have won the game with a total of ${winner.totalScore} points!`)
 
-		// call function restartGame if the user wants to continue playing
-		if (playAgain == 1) {
-			restartGame();
-		}
+	console.log("\nWould you like to play the game again?");
+	let playAgain = verifyPrompt("Enter 1 for Yes or 2 for No: ", 1, 2);
+
+	// call function restartGame if the user wants to continue playing
+	if (playAgain == 1) {
+		restartGame();
+	}
+}
+
+// gameWinner will sort the playerList and return the person with the highest totalScore
+function gameWinner(){
+	// Copying current playerList to a temp variable
+	tempPlayerList = playerList;
+
+	tempPlayerList.sort((a, b) => (a.totalScore > b.totalScore) ? 1 : ((b.totalScore > a.totalScore) ? -1 : 0))
+	return tempPlayerList[tempPlayerList.length - 1];
 }
 
 // restartGame will reset the playerList and invoke the main function again to restart the game
@@ -109,16 +128,19 @@ function playTurn(playerIndex) {
 	PROMPT("Press ENTER to spin the Wheel! ")
 
 	while (gameState == 1){
+		// Will clear the console. better UX
+		console.clear();
+
 		// Generates the Points for the current round
 		let spinValue = SpinTheWheel();
 
 		if (spinValue == 0) {
-			console.log("\nBad luck! you rolled a 0, your turn will now be skipped!");
+			console.log("Bad luck! you rolled a 0, your turn will now be skipped!");
 			console.log(`Your round score is ${playerList[playerIndex].roundScore}`);
 			return false;
 		}
 
-		console.log(`\nYou Spun: [${spinValue}]`)
+		console.log(`You Spun: [${spinValue}]`)
 		console.log(`Puzzle: ${playerArray.join('')} \t Answer: ${puzzleArray}\n`)
 
 		let playerGuess = PROMPT("What letter would you like to guess? ");
@@ -146,7 +168,7 @@ function playTurn(playerIndex) {
 				return true;
 			}
 
-			console.log("\nYES!");
+			console.log(`\nYES! Number of correct guesses made: ${correctGuesses}`);
 			console.log(`Puzzle: ${playerArray.join('')}`);
 			console.log(`Your round score is ${playerList[playerIndex].roundScore}`);
 		}
