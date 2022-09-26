@@ -174,6 +174,11 @@ function playTurn(playerIndex) {
 		}
 		else {
 			playerList[playerIndex].roundScore -= spinValue/2;
+
+			if (playerList[playerIndex].roundScore < 0) {
+				playerList[playerIndex].roundScore = 0
+			}
+
 			console.log("\nNO! Sorry");
 			console.log(`Puzzle: ${playerArray.join('')}`);
 			console.log(`Your round score is ${playerList[playerIndex].roundScore}`);
