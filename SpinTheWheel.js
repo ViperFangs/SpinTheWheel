@@ -15,20 +15,28 @@ let playerList = [];
 
 function main() {
 	let numberOfPlayers = 0;
-	const GAMEROUNDS = 3;
+	// the default number of rounds is 3
+	let numberOfRounds = 3;
 
 	console.log('Welcome to CPI 310 Fortunate Wheel');
 	numberOfPlayers = verifyPrompt("Enter number of players: ", 1, 3);
 
-	for (let i = 0; i < numberOfPlayers; i++)
-	{
-		playerList.push(createPlayer())
+	// if there is only 1 player then the game will end after 1 round and ask the player if they would like ot play again.
+	if (numberOfPlayers == 1) {
+		numberOfRounds = 1;
 	}
 
-	for (i = 1; i <= GAMEROUNDS; i++) {
+	for (let i = 0; i < numberOfPlayers; i++)
+	{
+		playerList.push(createPlayer(i + 1));
+	}
+
+	// the for loop will iterate till the max numberOfRounds
+	for (i = 1; i <= numberOfRounds; i++) {
 		index = 0;
 		let continueGame = true;
 
+		// the while loop will iterate until a player has won
 		while(continueGame) {
 				let playerWon = playTurn(index);
 
@@ -45,7 +53,22 @@ function main() {
 				}
 			}
 		}
+
+		console.log("Would you like to play the game again?");
+		let playAgain = verifyPrompt("Enter 1 for Yes and 2 for No", 1, 2);
+
+		// call function restartGame if the user wants to continue playing
+		if (playAgain == 1) {
+			restartGame();
+		}
 }
+
+// restartGame will reset the playerList and invoke the main function again to restart the game
+function restartGame() {
+	playerList = [];
+	main();
+}
+
 
 // verifyPrompt takes a string, a minValue, a maxValue and repeats to Prompt the player to enter a valid number which is between minValue and maxValue
 function verifyPrompt(string, minValue, maxValue){
@@ -156,11 +179,10 @@ function playTurn(playerIndex) {
 	}
 }
 
-function createPlayer() {
+function createPlayer(playerNumber) {
 	let name;
 	
-	console.log("\n");
-	name = PROMPT("Enter your name: ");
+	name = PROMPT(`Enter your name, player ${playerNumber}: `);
 	return {
 		name: name,
 		roundScore: 0,
