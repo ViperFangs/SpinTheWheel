@@ -195,6 +195,7 @@ function playTurn(playerIndex, numberOfPlayers) {
 			console.log(`Puzzle: ${playerArray.join('')}`);
 			console.log(`Your round score is ${playerList[playerIndex].roundScore}`);
 
+			// if there are more than 1 player then return false, else keep playing
 			if (numberOfPlayers > 1)
 				return false;
 		}
