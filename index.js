@@ -45,6 +45,7 @@ function main() {
 
 		// the while loop will iterate until a player has won
 		while(continueGame) {
+			// playTurn will return true if the player guessed the word correctly
 			let playerWon = playTurn(index);
 
 			if (playerWon) {
@@ -95,13 +96,14 @@ function verifyPrompt(string, minValue, maxValue){
 	let promptNumber = 99;
 	let incorrectFlag = false;
 
+	// a do while loop is used so that it enters the loop once before checking the while condition
 	do {
 		if (incorrectFlag) {
 			console.log(`\nPlease enter a number between ${minValue} & ${maxValue}`)
 		}
 
 		promptNumber = Number(PROMPT(string));
-		
+
 		if (promptNumber < minValue || promptNumber > maxValue || Number.isNaN(promptNumber)) {
 			promptNumber = 99;
 			incorrectFlag = true;
