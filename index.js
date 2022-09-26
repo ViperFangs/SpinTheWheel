@@ -124,8 +124,8 @@ function clearRoundScores() {
 	}
 }
 
-// playTurn takes a playerName and  playerNumber as inputs and is responsible for playing a single player turn
-// playTurn returns the value of points the player got at the end of the round.
+// playTurn takes a playerIndex as input and is responsible for playing a single player turn
+// playTurn returns true if the player successfully guesses the secret word, otherwise it returns false.
 function playTurn(playerIndex) {
 	// generates a random word and converts that word into an array
 	let puzzleArray = selectRandomWord().split('');
