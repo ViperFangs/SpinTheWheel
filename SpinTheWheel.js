@@ -63,6 +63,7 @@ function verifyPrompt(string, minValue, maxValue){
 	return promptNumber;
 }
 
+// clearRoundScores is responsible for deleting all the roundScores in the playerList array
 function clearRoundScores() {
 	for (let index in playerList) {
 		playerList[index].roundScore = 0;
