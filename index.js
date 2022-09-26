@@ -22,6 +22,7 @@ function main() {
 	console.clear();
 
 	console.log('Welcome to CPI 310 Fortunate Wheel');
+
 	numberOfPlayers = verifyPrompt("Enter number of players: ", 1, 3);
 
 	// if there is only 1 player then the game will end after 1 round and ask the player if they would like ot play again.
@@ -38,8 +39,8 @@ function main() {
 	console.clear();
 
 	// the for loop will iterate till the max numberOfRounds
-	for (i = 1; i <= numberOfRounds; i++) {
-		index = 0;
+	for (let i = 1; i <= numberOfRounds; i++) {
+		let index = 0;
 		let continueGame = true;
 
 		// the while loop will iterate until a player has won
@@ -76,7 +77,7 @@ function main() {
 // gameWinner will sort the playerList and return the person with the highest totalScore
 function gameWinner(){
 	// Copying current playerList to a temp variable
-	tempPlayerList = playerList;
+	let tempPlayerList = playerList;
 
 	tempPlayerList.sort((a, b) => (a.totalScore > b.totalScore) ? 1 : ((b.totalScore > a.totalScore) ? -1 : 0))
 	return tempPlayerList[tempPlayerList.length - 1];
@@ -94,13 +95,22 @@ function verifyPrompt(string, minValue, maxValue){
 	let promptNumber = 99;
 	let incorrectFlag = false;
 
-	while(promptNumber < minValue || promptNumber > maxValue){
+	do {
 		if (incorrectFlag) {
 			console.log(`\nPlease enter a number between ${minValue} & ${maxValue}`)
 		}
+
 		promptNumber = Number(PROMPT(string));
-		incorrectFlag = true;
-	}
+		
+		if (promptNumber < minValue || promptNumber > maxValue || Number.isNaN(promptNumber)) {
+			promptNumber = 99;
+			incorrectFlag = true;
+		}
+		else {
+			incorrectFlag = false;
+		}
+		
+	} while (incorrectFlag);
 
 	return promptNumber;
 }
