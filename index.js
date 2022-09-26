@@ -46,7 +46,7 @@ function main() {
 		// the while loop will iterate until a player has won
 		while(continueGame) {
 			// playTurn will return true if the player guessed the word correctly
-			let playerWon = playTurn(index);
+			let playerWon = playTurn(index, numberOfPlayers);
 
 			if (playerWon) {
 				// if the player correctly guesses the word then all roundScores are cleared and the game moves to the next round
@@ -126,7 +126,7 @@ function clearRoundScores() {
 
 // playTurn takes a playerIndex as input and is responsible for playing a single player turn
 // playTurn returns true if the player successfully guesses the secret word, otherwise it returns false.
-function playTurn(playerIndex) {
+function playTurn(playerIndex, numberOfPlayers) {
 	// generates a random word and converts that word into an array
 	let puzzleArray = selectRandomWord().split('');
 	let puzzleWord = puzzleArray.join('').toLowerCase();
@@ -194,7 +194,9 @@ function playTurn(playerIndex) {
 			console.log("\nNO! Sorry");
 			console.log(`Puzzle: ${playerArray.join('')}`);
 			console.log(`Your round score is ${playerList[playerIndex].roundScore}`);
-			return false;
+
+			if (numberOfPlayers > 1)
+				return false;
 		}
 
 		gameState = verifyPrompt('Enter 1 to Spin and Guess again or 2 to solve: ', 1, 2);
