@@ -182,7 +182,7 @@ function playTurn(playerIndex) {
 function createPlayer(playerNumber) {
 	let name;
 	
-	name = PROMPT(`Enter your name, player ${playerNumber}: `);
+	name = PROMPT(`Player ${playerNumber}, please enter your name: `);
 	return {
 		name: name,
 		roundScore: 0,
