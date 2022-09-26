@@ -153,7 +153,7 @@ function playTurn(playerIndex) {
 		}
 
 		console.log(`You Spun: [${spinValue}]`)
-		console.log(`Puzzle: ${playerArray.join('')} \t Answer: ${puzzleArray}\n`)
+		console.log(`Puzzle: ${playerArray.join('')}\n`)
 
 		let playerGuess = PROMPT("What letter would you like to guess? ");
 		let correctGuesses = 0;
